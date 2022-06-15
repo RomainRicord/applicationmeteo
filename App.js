@@ -6,6 +6,14 @@ import HomeScreen from './src/screens/HomeScreen.js';
 
 import {theme} from './src/config/theme.js'
 
+import { NavigationContainer } from '@react-navigation/native';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import PermissionScreen from './src/screens/PermissionScreen.js';
+
+
+const Stack = createNativeStackNavigator();
+
 const App = () => {
 
   /*
@@ -16,9 +24,14 @@ const App = () => {
   */
 
   return (
-    <PaperProvider theme={theme}>
-      <HomeScreen/>
-    </PaperProvider>
+    <NavigationContainer>
+      <PaperProvider theme={theme}>
+        <Stack.Navigator initialRouteName='Permission'>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Permission" component={PermissionScreen} />
+        </Stack.Navigator>
+      </PaperProvider>
+    </NavigationContainer>
   )
 }
 

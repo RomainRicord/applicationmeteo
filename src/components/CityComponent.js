@@ -9,7 +9,7 @@ const LeftContent = props => <Icon {...props} icon="folder" />
 const CityComponent = ({name,degree,status}) => {
     return (
         <Card style={styles.card} elevation={4}>
-            <Card.Title titleStyle={styles.titlecard} title={name} left={(props) => <Icon name="wi-day-sunny" size={50} color="red" />} />
+            <Card.Title titleStyle={styles.titlecard} title={name} left={(props) => <Icon name="wi-day-sunny" size={60} color="red" />} />
             <Card.Content> 
                 <Title>{degree} °C</Title>
                 <Paragraph>{status}</Paragraph>
