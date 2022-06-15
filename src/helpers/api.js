@@ -5,6 +5,7 @@ export const GetInfoCity = async ({lat,lon}) => {
 
     let Degree = 0
     let Status = ""
+    let Icon = ""
 
     await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=fr&appid=${API_KEY}`)
     
@@ -14,6 +15,7 @@ export const GetInfoCity = async ({lat,lon}) => {
 
         Degree = Math.ceil(data.data.main.temp - 273.15)
         Status = data.data.weather[0].description
+        Icon = data.data.weather[0].main
 
         //console.log(data.data[0].local_names.fr)
     })
@@ -25,9 +27,9 @@ export const GetInfoCity = async ({lat,lon}) => {
         // always executed
     });
 
-    console.log("Return Degree : "+Degree)
+    //console.log("Return Degree : "+Degree)
 
-    return {degree:Degree,status:Status}
+    return {degree:Degree,status:Status,icon:Icon}
 
 }
 
