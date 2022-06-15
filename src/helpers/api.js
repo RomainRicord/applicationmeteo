@@ -37,6 +37,12 @@ export const GetInfoCity = async ({lat,lon}) => {
     let Degree = 0
     let Status = ""
     let Icon = ""
+    let WindForce = 0
+    let Humidity = 0
+    let feels_like = 0
+    let UV = 0
+    let minTemp = 0
+    let maxTemp = 0
 
     console.log("GetInfoCity Internet",lat,lon)
 
@@ -49,6 +55,12 @@ export const GetInfoCity = async ({lat,lon}) => {
         Degree = Math.ceil(data.data.main.temp - 273.15)
         Status = data.data.weather[0].description
         Icon = data.data.weather[0].icon
+        WindForce = data.data.wind.speed
+        Humidity = data.data.main.humidity
+        feels_like = data.data.main.feels_like
+        UV = data.data.uvi
+        minTemp = Math.ceil(data.data.main.temp_min - 273.15)
+        maxTemp = Math.ceil(data.data.main.temp_max - 273.15)
 
         //console.log(data.data[0].local_names.fr)
     })
@@ -62,7 +74,7 @@ export const GetInfoCity = async ({lat,lon}) => {
 
     //console.log("Return Degree : "+Degree)
 
-    return {degree:Degree,status:Status,icon:Icon}
+    return {degree:Degree,status:Status,icon:Icon,windforce:WindForce,humidity:Humidity,feels_like:feels_like,UV:UV,minTemp:minTemp,maxTemp:maxTemp}
 
 }
 
