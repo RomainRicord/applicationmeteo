@@ -38,7 +38,7 @@ const HomeScreen = ({navigation,route}) => {
             function (item) {
             // Applying filter for the inserted text in search bar
             const itemData = item.name
-                ? item.title.toUpperCase()
+                ? item.name.toUpperCase()
                 : ''.toUpperCase();
             const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > -1;
@@ -57,6 +57,7 @@ const HomeScreen = ({navigation,route}) => {
     const getAllDataLocationsCity = async (citys_) => {
 
         console.log( 'getAllDataLocationsCity', citys_)
+        let table = []
 
         for (let i = 0; i < citys_.length; i++) {
             const city__ = citys_[i]
@@ -71,10 +72,14 @@ const HomeScreen = ({navigation,route}) => {
             const cityStatus = cityInfo.status
             const cityIcon = cityInfo.icon
             const cityData = {name:cityName,degree:cityDegree,status:cityStatus,icon:cityIcon,lat:cityLat,lon:cityLon}
-            setMasterDataSource(masterDataSource => [...masterDataSource,cityData])
-            setFilteredDataSource(masterDataSource)
+            
+            table.push(cityData)
+            
             console.log("getAllDataLocationsCity "+" City : "+cityName+" Degree : "+cityDegree+" Status : "+cityStatus+" Icon : "+cityIcon)
         }
+
+        setMasterDataSource(table)
+        setFilteredDataSource(table)
 
     }
 
@@ -114,6 +119,8 @@ const HomeScreen = ({navigation,route}) => {
     }
 
     useEffect(() => {
+        setMasterDataSource([])
+        setFilteredDataSource([])
         GetLocation()
         GetInfo()
         
@@ -124,7 +131,7 @@ const HomeScreen = ({navigation,route}) => {
         console.log("try render",item)
 
         return (
-            <CityComponent name={item.name} degree={item.degree} status={item.status} />
+            <CityComponent name={item.name} degree={item.degree} status={item.status} icon={item.icon} />
         );
       };
     
@@ -148,7 +155,7 @@ const HomeScreen = ({navigation,route}) => {
                 }}
             />
             
-            <View style={styles.container}>
+            <View style={[styles.container,{marginBottom:20}]}>
                 <FlatList
                     data={filteredDataSource}
                     renderItem={renderItem}
