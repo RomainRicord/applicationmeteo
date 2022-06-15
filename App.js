@@ -26,7 +26,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <PaperProvider theme={theme}>
-        <Stack.Navigator initialRouteName='Permission'>
+        <Stack.Navigator initialRouteName='Permission' screenOptions={{headerShown: false}}>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Permission" component={PermissionScreen} />
         </Stack.Navigator>

@@ -21,6 +21,11 @@ export const styles = StyleSheet.create({
         fontSize:30,
         fontWeight:'bold',
         color:theme.colors.primary
+    },
+    textcity:{
+        fontSize:20,
+        color:'white'
+        
     }
 
 })

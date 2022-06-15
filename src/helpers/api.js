@@ -1,11 +1,44 @@
 const API_KEY = require('../config/api.js').API_KEY;
+const API_RAPID_KEY = require('../config/api.js').API_RAPID_KEY;
 import axios from 'axios'
+
+
+export const GetNearestCity = async (lat,lon) => {
+
+    let ListOtherCity = []
+
+    console.log("GetNearestCity", lat, lon)
+
+    const options = {
+        method: 'GET',
+        url: `https://wft-geo-db.p.rapidapi.com/v1/geo/locations/${lat}+${lon}/nearbyCities`,
+        params: {radius: '100'},
+        headers: {
+          'X-RapidAPI-Key': API_RAPID_KEY,
+          'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+        }
+      };
+
+    await axios.request(options).then(function (response) {
+        console.log(response.data.data);
+        for(let i = 1; i < response.data.data.length; i++) {
+            ListOtherCity.push({name:response.data.data[i].name,lat: response.data.data[i].latitude,lon: response.data.data[i].longitude})
+        }
+    }).catch(function (error) {
+        console.error("Error GetNearestCity",error);
+    });
+
+    return ListOtherCity
+
+}
 
 export const GetInfoCity = async ({lat,lon}) => {
 
     let Degree = 0
     let Status = ""
     let Icon = ""
+
+    console.log("GetInfoCity Internet",lat,lon)
 
     await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=fr&appid=${API_KEY}`)
     
@@ -15,13 +48,13 @@ export const GetInfoCity = async ({lat,lon}) => {
 
         Degree = Math.ceil(data.data.main.temp - 273.15)
         Status = data.data.weather[0].description
-        Icon = data.data.weather[0].main
+        Icon = data.data.weather[0].icon
 
         //console.log(data.data[0].local_names.fr)
     })
     .catch(function (error) {
         // handle error
-        console.log(error)
+        console.log("GetInfoCity",error)
     })
     .then(function () {
         // always executed
@@ -62,7 +95,7 @@ export const GetCityName = async ({lat,lon}) => {
     })
     .catch(function (error) {
         // handle error
-        console.log(error)
+        console.log("GetCityName",error)
     })
     .then(function () {
         // always executed
@@ -70,6 +103,6 @@ export const GetCityName = async ({lat,lon}) => {
 
     console.log("Return CityName : "+CityName)
 
-    return CityName
+    return {CityName : CityName}
 
 }

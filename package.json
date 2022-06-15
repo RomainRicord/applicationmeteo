@@ -13,6 +13,8 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "axios": "^0.27.2",
+    "geolocation-utils": "^1.2.5",
+    "migratory-js": "^1.0.2",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-element": "^1.2.1",

@@ -6,7 +6,7 @@ import {theme} from '../config/theme.js'
 import RNLocation from 'react-native-location';
 
 RNLocation.configure({
-    distanceFilter: 1
+    distanceFilter: 200
 })
 
 const permissionHandle = async (navigation,route) => {
