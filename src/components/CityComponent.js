@@ -8,7 +8,7 @@ import {Image} from 'react-native'
 
 const LeftContent = props => <Icon {...props} icon="folder" />
 
-const CityComponent = ({name,degree,status,icon, windforce, feels_like,humidity, UV, minTemp, maxTemp, }) => {
+const CityComponent = ({name,degree,status,icon, windforce, feels_like,humidity, UV, minTemp, maxTemp, date}) => {
 
     console.log('icon',icon)
 
@@ -55,6 +55,7 @@ const CityComponent = ({name,degree,status,icon, windforce, feels_like,humidity,
                 </View>
                 
                 <Paragraph>{status}</Paragraph>
+                <Paragraph>Date du relevé: {date}</Paragraph>
             </Card.Content> 
         </Card>
     )

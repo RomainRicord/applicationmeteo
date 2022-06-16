@@ -73,7 +73,7 @@ const HomeScreen = ({navigation,route}) => {
             const cityDegree = cityInfo.degree
             const cityStatus = cityInfo.status
             const cityIcon = cityInfo.icon
-            const cityData = {name:cityName,degree:cityDegree,status:cityStatus,icon:cityIcon,lat:cityLat,lon:cityLon,windforce:cityInfo.windforce,humidity:cityInfo.humidity,feels_like:cityInfo.feels_like,UV:cityInfo.UV,minTemp:cityInfo.minTemp,maxTemp:cityInfo.maxTemp}
+            const cityData = {name:cityName,degree:cityDegree,status:cityStatus,icon:cityIcon,lat:cityLat,lon:cityLon,windforce:cityInfo.windforce,humidity:cityInfo.humidity,feels_like:cityInfo.feels_like,UV:cityInfo.UV,minTemp:cityInfo.minTemp,maxTemp:cityInfo.maxTemp,date:cityInfo.date}
             
             table.push(cityData)
             
@@ -88,11 +88,11 @@ const HomeScreen = ({navigation,route}) => {
     const GetCitySearch = async (cityName) => {
 
         await GetInfoCity( {byname:true,name:cityName} )
-        .then( ({degree,status,icon,windforce,humidity,feels_like,UV,minTemp,maxTemp}) => { 
+        .then( ({degree,status,icon,windforce,humidity,feels_like,UV,minTemp,maxTemp,date}) => { 
             
             let table = masterDataSource
 
-            const cityData = {name:cityName,degree:degree,status:status,icon:icon,windforce:windforce,humidity:humidity,feels_like:feels_like,UV:UV,minTemp:minTemp,maxTemp:maxTemp}
+            const cityData = {name:cityName,degree:degree,status:status,icon:icon,windforce:windforce,humidity:humidity,feels_like:feels_like,UV:UV,minTemp:minTemp,maxTemp:maxTemp,date:date}
 
             table.push(cityData)
 
@@ -155,7 +155,7 @@ const HomeScreen = ({navigation,route}) => {
         console.log("try render",item)
 
         return (
-            <CityComponent key={index} name={item.name} degree={item.degree} status={item.status} icon={item.icon} windforce={item.windforce} humidity={item.humidity} feels_like={item.feels_like} UV={item.UV} minTemp={item.minTemp} maxTemp={item.maxTemp} />
+            <CityComponent key={index} name={item.name} degree={item.degree} date={item.date} status={item.status} icon={item.icon} windforce={item.windforce} humidity={item.humidity} feels_like={item.feels_like} UV={item.UV} minTemp={item.minTemp} maxTemp={item.maxTemp} />
         );
       };
     

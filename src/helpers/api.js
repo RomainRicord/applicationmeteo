@@ -1,7 +1,7 @@
 const API_KEY = require('../config/api.js').API_KEY;
 const API_RAPID_KEY = require('../config/api.js').API_RAPID_KEY;
 import axios from 'axios'
-
+import dayjs from 'dayjs'
 
 export const GetNearestCity = async (lat,lon) => {
 
@@ -43,6 +43,7 @@ export const GetInfoCity = async ({lat,lon,byname,name}) => {
     let UV = 0
     let minTemp = 0
     let maxTemp = 0
+    let date = 0
     let link = ""
 
     if (byname == true){
@@ -111,6 +112,7 @@ export const GetInfoCity = async ({lat,lon,byname,name}) => {
         UV = data.data.uvi
         minTemp = (data.data.main.temp_min - 273.15).toFixed()
         maxTemp = (data.data.main.temp_max - 273.15).toFixed()
+        date = dayjs(new Date(data.data.dt*1000).toLocaleDateString("fr-FR")).format("DD/MM/YYYY")
 
         //console.log(data.data[0].local_names.fr)
     })
@@ -124,7 +126,7 @@ export const GetInfoCity = async ({lat,lon,byname,name}) => {
 
     //console.log("Return Degree : "+Degree)
 
-    return {degree:Degree,status:Status,icon:Icon,windforce:WindForce,humidity:Humidity,feels_like:feels_like,UV:UV,minTemp:minTemp,maxTemp:maxTemp}
+    return {degree:Degree,status:Status,icon:Icon,windforce:WindForce,humidity:Humidity,feels_like:feels_like,UV:UV,minTemp:minTemp,maxTemp:maxTemp,date:date}
 
 }
 

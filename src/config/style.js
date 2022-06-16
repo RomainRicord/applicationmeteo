@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     },
     card: {
         width:350,
-        height:250,
+        height:280,
         backgroundColor:'rgb(200,200,200)',
         borderRadius:20,
         marginTop:20
