@@ -52,15 +52,15 @@ export const GetInfoCity = async ({lat,lon}) => {
 
         console.log(data.data)
 
-        Degree = Math.ceil(data.data.main.temp - 273.15)
+        Degree = (data.data.main.temp - 273.15).toFixed()
         Status = data.data.weather[0].description
         Icon = data.data.weather[0].icon
-        WindForce = data.data.wind.speed
+        WindForce = (data.data.wind.speed*3.6).toFixed()
         Humidity = data.data.main.humidity
-        feels_like = data.data.main.feels_like
+        feels_like = (data.data.main.feels_like- 273.15).toFixed()
         UV = data.data.uvi
-        minTemp = Math.ceil(data.data.main.temp_min - 273.15)
-        maxTemp = Math.ceil(data.data.main.temp_max - 273.15)
+        minTemp = (data.data.main.temp_min - 273.15).toFixed()
+        maxTemp = (data.data.main.temp_max - 273.15).toFixed()
 
         //console.log(data.data[0].local_names.fr)
     })

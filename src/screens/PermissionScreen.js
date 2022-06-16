@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View,Text,StyleSheet} from 'react-native'
 import {Button} from 'react-native-paper'
 import {theme} from '../config/theme.js'
 
@@ -39,11 +39,20 @@ const permissionHandle = async (navigation,route) => {
 const PermissionScreen = ({navigation,route}) => {
     return(
         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-            <Button mode="contained" color={theme.colors.primary} textColor={theme.colors.tertiary} onPress={() => (permissionHandle(navigation,route))}>
-                Autoriser les permissions pour l'application
+            <Text style={styles.textpermission}>L'application a besoin de votre localisation pour fonctionner</Text>
+            <Button mode="contained" color={theme.colors.primary} buttonColor={theme.colors.primary} labelStyle={{color:'white',textAlign:'center'}} style={{borderRadius:20,marginTop:20}} textColor="white" contentStyle={{borderRadius:20}} onPress={() => (permissionHandle(navigation,route))}>
+                Autoriser
             </Button>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+  textpermission:{
+    color:'black',
+    fontSize:30,
+    textAlign:'center'
+  }
+})
 
 export default PermissionScreen

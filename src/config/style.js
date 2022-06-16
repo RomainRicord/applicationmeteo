@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     },
     card: {
         width:350,
-        height:200,
+        height:250,
         backgroundColor:'rgb(200,200,200)',
         borderRadius:20,
         marginTop:20
@@ -20,12 +20,20 @@ export const styles = StyleSheet.create({
     titlecard: {
         fontSize:30,
         fontWeight:'bold',
+        textAlign:'center',
         color:theme.colors.primary
     },
     textcity:{
         fontSize:20,
         color:'white'
         
+    },
+    info: {
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        textAlign:'center',
+        flexDirection:'row'
     }
 
 })

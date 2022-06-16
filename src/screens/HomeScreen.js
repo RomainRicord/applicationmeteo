@@ -71,7 +71,7 @@ const HomeScreen = ({navigation,route}) => {
             const cityDegree = cityInfo.degree
             const cityStatus = cityInfo.status
             const cityIcon = cityInfo.icon
-            const cityData = {name:cityName,degree:cityDegree,status:cityStatus,icon:cityIcon,lat:cityLat,lon:cityLon}
+            const cityData = {name:cityName,degree:cityDegree,status:cityStatus,icon:cityIcon,lat:cityLat,lon:cityLon,windforce:cityInfo.windforce,humidity:cityInfo.humidity,feels_like:cityInfo.feels_like,UV:cityInfo.UV,minTemp:cityInfo.minTemp,maxTemp:cityInfo.maxTemp}
             
             table.push(cityData)
             
@@ -126,12 +126,12 @@ const HomeScreen = ({navigation,route}) => {
         
     }, [])
 
-    const renderItem = ({ item }) => {
+    const renderItem = ({ item,index }) => {
     
         console.log("try render",item)
 
         return (
-            <CityComponent name={item.name} degree={item.degree} status={item.status} icon={item.icon} />
+            <CityComponent key={index} name={item.name} degree={item.degree} status={item.status} icon={item.icon} windforce={item.windforce} humidity={item.humidity} feels_like={item.feels_like} UV={item.UV} minTemp={item.minTemp} maxTemp={item.maxTemp} />
         );
       };
     
@@ -159,7 +159,6 @@ const HomeScreen = ({navigation,route}) => {
                 <FlatList
                     data={filteredDataSource}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
                 />
             </View>
         </View>
