@@ -32,7 +32,7 @@ export const GetNearestCity = async (lat,lon) => {
 
 }
 
-export const GetInfoCity = async ({lat,lon}) => {
+export const GetInfoCity = async ({lat,lon,byname,name}) => {
 
     let Degree = 0
     let Status = ""
@@ -43,10 +43,60 @@ export const GetInfoCity = async ({lat,lon}) => {
     let UV = 0
     let minTemp = 0
     let maxTemp = 0
+    let link = ""
 
-    console.log("GetInfoCity Internet",lat,lon)
+    if (byname == true){
 
-    await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=fr&appid=${API_KEY}`)
+        name = name.replace(/\s/g, '%20')
+        name = name.replace(/'/g, '%27')
+        name = name.replace(/"/g, '%22')
+        name = name.replace(/&/g, '%26')
+        name = name.replace(/\//g, '%2F')
+        name = name.replace(/\?/g, '%3F')
+        name = name.replace(/\=/g, '%3D')
+        name = name.replace(/\+/g, '%2B')
+        name = name.replace(/\#/g, '%23')
+        name = name.replace(/\$/g, '%24')
+        name = name.replace(/\!/g, '%21')
+        name = name.replace(/\(/g, '%28')
+        name = name.replace(/\)/g, '%29')
+        name = name.replace(/\*/g, '%2A')
+        name = name.replace(/\|/g, '%7C')
+        name = name.replace(/\{/g, '%7B')
+        name = name.replace(/\}/g, '%7D')
+        name = name.replace(/\[/g, '%5B')
+        name = name.replace(/\]/g, '%5D')
+        name = name.replace(/\:/g, '%3A')
+        name = name.replace(/\;/g, '%3B')
+        name = name.replace(/\,/g, '%2C')
+        name = name.replace(/\</g, '%3C')
+        name = name.replace(/\>/g, '%3E')
+        name = name.replace(/\=/g, '%3D')
+        name = name.replace(/\?/g, '%3F')
+        name = name.replace(/\@/g, '%40')
+        name = name.replace(/\&/g, '%26')
+        name = name.replace(/\$/g, '%24')
+        name = name.replace(/\!/g, '%21')
+        name = name.replace(/\(/g, '%28')
+        name = name.replace(/\)/g, '%29')
+        name = name.replace(/\*/g, '%2A')
+        name = name.replace(/\|/g, '%7C')
+        name = name.replace(/\{/g, '%7B')
+        name = name.replace(/\}/g, '%7D')
+        name = name.replace(/\[/g, '%5B')
+        name = name.replace(/\]/g, '%5D')
+        name = name.replace(/\:/g, '%3A')
+        name = name.replace(/\;/g, '%3B')
+        name = name.replace(/\,/g, '%2C')
+        name = name.replace(/\</g, '%3C')
+        name = name.replace(/\>/g, '%3E')
+
+        link = `https://api.openweathermap.org/data/2.5/weather?q=${name}&lang=fr&appid=${API_KEY}`
+    }else{
+        link = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=fr&appid=${API_KEY}`
+    }
+
+    await axios.get(link)
     
     .then(data => {
 

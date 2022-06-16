@@ -1,11 +1,13 @@
 import React, { useEffect,useState } from 'react'
-import {View,Text, Image, FlatList} from 'react-native'
+import {View,Text, Image, FlatList,ImageBackground} from 'react-native'
 import CityComponent from '../components/CityComponent.js'
-import { Appbar,Searchbar } from 'react-native-paper';
+import { Appbar,Button,Searchbar } from 'react-native-paper';
 import { GetCityName, GetInfoCity, GetNearestCity} from '../helpers/api.js';
 
 import {styles} from '../config/style.js'
 import RNLocation from 'react-native-location';
+
+import {theme} from '../config/theme.js'
 
 import Icon from '../../assets/weatherIcon.js'
 
@@ -83,6 +85,28 @@ const HomeScreen = ({navigation,route}) => {
 
     }
 
+    const GetCitySearch = async (cityName) => {
+
+        await GetInfoCity( {byname:true,name:cityName} )
+        .then( ({degree,status,icon,windforce,humidity,feels_like,UV,minTemp,maxTemp}) => { 
+            
+            let table = masterDataSource
+
+            const cityData = {name:cityName,degree:degree,status:status,icon:icon,windforce:windforce,humidity:humidity,feels_like:feels_like,UV:UV,minTemp:minTemp,maxTemp:maxTemp}
+
+            table.push(cityData)
+
+            setMasterDataSource(table)
+
+            setFilteredDataSource(table)
+        })
+        .catch( (error) => { console.log(error) } )
+        .then(function () {
+            // always executed
+        });
+
+    }
+
     const GetLocation = async () => {
         const location = await RNLocation.getLatestLocation({timeout: 100})
         await GetCityName( {lat:location.latitude, lon:location.longitude} )
@@ -137,15 +161,20 @@ const HomeScreen = ({navigation,route}) => {
     
     return(
         <View style={{flex:1}}>
-            <Appbar style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column',height:256}}>
-                
-                <Image source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} style={{width:128,height:128}} />
+            <ImageBackground
+            // Image from https://unsplash.com/photos/EYnirI5zPT0
+                source={status.includes('couvert') ? require('../../assets/img/22714288lpw-22714290-article-jpg_8500454_1250x625.jpg') : require('../../assets/img/vignette-focus.jpg')}
+                style={{ width: '100%', opacity: 0.7 }} blurRadius={6}>
+                <Appbar style={{backgroundColor: 'transparent',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column',height:256}}>
+                    
+                    <Image source={{uri:`http://openweathermap.org/img/wn/${icon}@2x.png`}} style={{width:128,height:128}} />
 
-                <Text style={styles.textcity}>{city}</Text>
-                <Text style={styles.textcity}>{degree} °C</Text>
-                <Text style={styles.textcity}>{status}</Text>
-              
-            </Appbar>
+                    <Text style={styles.textcity}>{city}</Text>
+                    <Text style={styles.textcity}>{degree} °C</Text>
+                    <Text style={styles.textcity}>{status}</Text>
+                
+                </Appbar>
+            </ImageBackground>
             <Searchbar  
                 placeholder="Recherche"
                 onChangeText={(text) => searchFilterFunction(text)}
@@ -154,6 +183,13 @@ const HomeScreen = ({navigation,route}) => {
                     flexDirection:'row-reverse'
                 }}
             />
+            <Button mode="contained" color={theme.colors.primary} buttonColor={theme.colors.primary} labelStyle={{color:'white',textAlign:'center'}} textColor="white" contentStyle={{borderRadius:20}} onPress={() => 
+                {
+                    GetCitySearch(search)
+                }
+            }>
+                Rechercher
+            </Button>
             
             <View style={[styles.container,{marginBottom:20}]}>
                 <FlatList
